@@ -10,6 +10,7 @@
     <default-property name="AWS_REGION" value=""/>
     <default-property name="AWS_ACCESS_KEY_ID" value=""/>
     <default-property name="AWS_SECRET_ACCESS_KEY" value=""/>
+    <default-property name="AWS_ROLE_ARN" value=""/>
 
     <!-- Support non standard s3 service, for example Minio -->
     <default-property name="AWS_ENDPOINT_URL" value=""/>
@@ -24,9 +25,10 @@
     <default-property name="aws_s3_bucket_name3" value=""/>
 
     <tools>
+        <tool-factory class="org.moqui.aws.EcrClientToolFactory" init-priority="40" disabled="false"/>
+        <tool-factory class="org.moqui.aws.LambdaClientToolFactory" init-priority="40" disabled="false"/>
         <tool-factory class="org.moqui.aws.S3ClientToolFactory" init-priority="40" disabled="false"/>
         <tool-factory class="org.moqui.aws.SnsClientToolFactory" init-priority="40" disabled="false"/>
-        <tool-factory class="org.moqui.aws.EcrClientToolFactory" init-priority="40" disabled="false"/>
     </tools>
     <resource-facade>
         <resource-reference scheme="aws3" class="org.moqui.aws.S3ResourceReference"/>
