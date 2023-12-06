@@ -28,6 +28,7 @@
         <tool-factory class="org.moqui.aws.EcrClientToolFactory" init-priority="40" disabled="false"/>
         <tool-factory class="org.moqui.aws.LambdaClientToolFactory" init-priority="40" disabled="false"/>
         <tool-factory class="org.moqui.aws.S3ClientToolFactory" init-priority="40" disabled="false"/>
+        <tool-factory class="org.moqui.aws.SecretsManagerClientToolFactory" init-priority="40" disabled="false"/>
         <tool-factory class="org.moqui.aws.SnsClientToolFactory" init-priority="40" disabled="false"/>
     </tools>
     <resource-facade>
