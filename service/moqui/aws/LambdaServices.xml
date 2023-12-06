@@ -25,9 +25,9 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="errorMessage"/>
         </out-parameters>
         <actions>
-            <set field="lambdaClientFactory" from="ec.factory.getToolFactory('AwsSnsClient')"/>
+            <set field="lambdaClientFactory" from="ec.factory.getToolFactory('AwsLambdaClient')"/>
             <if condition="lambdaClientFactory == null">
-                <log message="AWS Lambda tool not active, attempt to invoke function ${functionName}"/>
+                <log message="AWS Lambda tool not active, halting attempt to invoke function ${functionName}"/>
                 <set field="successful" from="false"/>
                 <set field="errorMessage" value="AWS Lambda tool not active"/>
                 <return/>
@@ -47,11 +47,10 @@ along with this software (see the LICENSE.md file). If not, see
                     InvokeRequest request = InvokeRequest.builder()
                             .functionName(functionName as String)
                             .payload(SdkBytes.fromUtf8String(payload as String))
-                            .build()
+                            .build() as InvokeRequest
 
                     InvokeResponse result = lambdaClient.invoke(request)
-
-                    response = new JsonSlurper().parse(result.payload().asUtf8String())
+                    response = new JsonSlurper().parse(result.payload().asByteArray())
                     successful = true
                 } catch (Exception e) {
                     ec.logger.error("Error invoking Lambda function ${functionName}", e)
